@@ -1,0 +1,65 @@
+<!--The content below is only a placeholder and can be replaced.-->
+<div style="text-align:center">
+  <h1>
+    RESTful Tasks API
+  </h1>
+  <hr>
+</div>
+
+<div class="headerArea">
+  <form (submit)="onSubmit()">
+    <h4>write a task</h4>
+    <p>{{ newTask | json }}</p>
+    <!-- to see changes in realtime-->
+    title:
+    <input [(ngModel)]="newTask.title" name="newTask.title" type="text">
+    <br>
+    <br> description
+    <textarea [(ngModel)]="newTask.description" name="newTask.description" id="" cols="30" rows="4"></textarea>
+    <br>
+    <input type="submit" value="Create a Task!">
+  </form>
+  <!-- <button (click)="onButtonClickBOB()">Get All Tasks</button> -->
+</div>
+
+<div class="center">
+
+  <div *ngIf="task_arr" class="tasks">
+    <h3>All Tasks:</h3>
+    <!-- task is the obj inside task_arr -->
+    <li *ngFor="let task of task_arr">
+      <!-- {{task._id}} -  -->
+      {{task.title }} - 
+      {{task.description }} - 
+      <button (click)="onButShowDesc(task)">show descr</button> -
+      <button (click)="showDivUpdate(task)">UPDATE</button> -
+      <button (click)="onButDel(task._id)" class='red'>DELETE</button>
+      <br>
+      <!-- {{ task| json }} -->
+    </li>
+  </div>
+
+  <!-- click)="onButUpdate(task._id) -->
+  <div *ngIf="selectedTask" class="update">
+    <h4>update {{ selectedTask }}</h4>
+    <hr>
+    <form (submit)="update_task(selectedTask)">
+      <!-- <p>{{ newTask | json }}</p> to see changes in realtime -->
+      title:
+      <input [(ngModel)]="selectedTask.title" name="selectedTask.title" type="text" placeholder={{selectedTask.title}}>
+      <br>
+      <br> description
+      <textarea [(ngModel)]="selectedTask.description" name="selectedTask.description" id="" cols="30" rows="4"></textarea>
+      <br>
+      <input type="submit" value="UPDATE a Task!">
+    </form>
+  </div>
+</div>
+
+<div *ngIf="tasks" class="show">
+  <h4>details</h4>
+  <hr> {{ tasks.title }}
+  <br> {{ tasks.description }}
+</div>
+
+<hr>
